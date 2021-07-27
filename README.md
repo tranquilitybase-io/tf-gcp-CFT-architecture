@@ -2,6 +2,19 @@
 
 ##  GFT - Terraform-Cloud Foundation Toolkit for creating Landing Zones. (draft)
 
+## Table of Contents
+
+* [Table of Contents](#table-of-contents)
+
+     * [Prerequisites](#prerequisites)
+     * [The Deployment Process (Overview)](#the-deployment-process-overview)
+     * [0-bootstrap](#the-deployment-process-overview)
+     * [1-org](#the-deployment-process-overview)
+     * [2-environment](#the-deployment-process-overview)
+     * [3-network](#the-deployment-process-overview)
+         
+ 
+
 ## Prerequisites
   
   To run the commands described in this document, you need to have the following installed:
