@@ -1,5 +1,5 @@
 ORG_FOLDER=./org
-[ -d ORG_FOLDER ] && { echo "Removing past deployment file $ORG_FOLDER"; rm -rf $ORG_FOLDER; } || echo "No past deployments found"
+[ -d $ORG_FOLDER ] && { echo "Removing past deployment file $ORG_FOLDER"; rm -rf $ORG_FOLDER; } || echo "No past deployments found"
 
 echo sourcing required variables
 source ./scripts/org/env-variables.sh
@@ -21,26 +21,14 @@ gcloud source repos clone gcp-policies --project=$CLOUD_BUILD_PROJECT_ID
 cd gcp-policies
 
 echo Copying policy folder to current directory
-$POLICY_FILE=../terraform-example-foundation/policy-library
-[ -d $POLICY_FILE ] && { echo "Copying policy folder to current directory."; cp -R $POLICY_FILE .; } || { echo "Error: Directory $POLICY_FILE does not exist."; exit 1; }
+POLICY_FOLDER=../terraform-example-foundation/policy-library/
+[ -d $POLICY_FOLDER ] && { echo "Copying policy folder to current directory."; cp -R $POLICY_FOLDER .; } || { echo "Error: Directory $POLICY_FOLDER does not exist."; exit 1; }
 
 echo Pushing gcp policies to GSR
 git add .
 git commit -m 'Your message'
 git push --set-upstream origin master
 cd ..
-
-
-echo Cloning adding variables
-
-TF_EXAMPLE_VARS=./terraform-example-foundation/1-org/envs/shared/terraform.example.tfvars
-[ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded terraform.example.tfvars file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No terraform.example.tfvars file found"; exit 1; }
-
-
-TF_VARS=../scripts/org/terraform.tfvars
-COPY_LOCATION=./terraform-example-foundation/1-org/envs/shared/
-[ -f $TF_VARS ] && { echo "Copying $TF_VARS to $COPY_LOCATION"; cp $TF_VARS $COPY_LOCATION; } || { echo "No $TF_VARS file found"; exit 1; }
-
 
 echo Cloning gcp-org
 
@@ -51,20 +39,39 @@ gcloud source repos clone gcp-org --project=$CLOUD_BUILD_PROJECT_ID
 cd gcp-org
 git checkout -b plan
 
-
-echo Adding build/wrapper files to gcp-org
-
-$BUILD_FILES=../terraform-example-foundation/build
-$CLOUD_BUILD_FILES=../terraform-example-foundation/build/cloudbuild-tf-*
-$CLOUD_TF_WRAPPER_FILES=../terraform-example-foundation/build/tf-wrapper.sh
-[ -d $BUILD_FILES ] && { echo "copying build files"; cp $CLOUD_BUILD_FILES .; cp $CLOUD_TF_WRAPPER_FILES .;  } || { echo "Can't find build files"; exit 1; }
-
 echo Copying in org code
 ORG_CODE_LOCATION=../terraform-example-foundation/1-org/
 [ -d $ORG_CODE_LOCATION ] && { echo "copying org files"; cp -R $ORG_CODE_LOCATION .; } || { echo "Can't find org files"; exit 1; }
+
+echo Adding build/wrapper files to gcp-org
+BUILD_FILES=../terraform-example-foundation/build
+CLOUD_BUILD_FILES=../terraform-example-foundation/build/cloudbuild-tf-*
+CLOUD_TF_WRAPPER_FILES=../terraform-example-foundation/build/tf-wrapper.sh
+
+[ -d $BUILD_FILES ] && { echo "copying build files"; cp $CLOUD_BUILD_FILES .; cp $CLOUD_TF_WRAPPER_FILES .;  } || { echo "Can't find build files"; exit 1; }
+
 
 Echo Change wrapper permissions
 WRAPPER_FILE=./tf-wrapper.sh
 [ -f $WRAPPER_FILE ] && { echo "copying org files"; chmod 755 $WRAPPER_FILE; } || { echo "Can't find wrapper file"; exit 1; }
 
-#rm ../envs/shared
+
+echo Removing unneeded variables
+TF_EXAMPLE_VARS=./envs/shared/terraform.example.tfvars
+[ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded terraform.example.tfvars file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No terraform.example.tfvars file found"; exit 1; }
+
+
+echo Copying in needed variables
+TF_VARS=../../scripts/org/terraform.tfvars
+COPY_LOCATION=./envs/shared
+[ -f $TF_VARS ] && { echo "Copying $TF_VARS to $COPY_LOCATION"; cp $TF_VARS $COPY_LOCATION; } || { echo "No $TF_VARS file found"; exit 1; }
+
+git add .
+git commit -m 'Your message'
+git push --set-upstream origin plan --force
+
+sleep 60
+
+git checkout -b production
+git push origin production --force
+
