@@ -1,6 +1,5 @@
 # tf-gcp-CFT-architecture
 
-
 ##  GFT - Terraform-Cloud Foundation Toolkit for creating Landing Zones. (draft)
 
 ## Table of Contents
