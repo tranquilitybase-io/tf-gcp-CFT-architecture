@@ -8,10 +8,10 @@
 
      * [Prerequisites](#prerequisites)
      * [The Deployment Process (Overview)](#the-deployment-process-overview)
-     * [0-bootstrap](#the-deployment-process-overview)
-     * [1-org](#the-deployment-process-overview)
-     * [2-environment](#the-deployment-process-overview)
-     * [3-network](#the-deployment-process-overview)
+     * [0-bootstrap](#0-bootstrap)
+     * [1-org](#1-org)
+     * [2-environment](#2-environment)
+     * [3-network](#3-network)
          
  
 
@@ -41,7 +41,7 @@
 <img width="1018" alt="Screenshot 2021-07-27 at 11 43 57 am" src="https://user-images.githubusercontent.com/80045831/127141366-262007ca-c4a6-48c5-a0bc-b89bdeb694a8.png">
 
 
-## 0- bootstrap
+## 0-bootstrap
 This repo is part of a multi-part guide that shows how to configure and deploy the example.com reference architecture described in Google Cloud security foundations guide (PDF). 
 
 ### Instructions: 
@@ -57,7 +57,7 @@ Rename the file "terraform.example.tfvars" to "terraform.tfvars"
 	
 	make bootstrap
 
-## 1- org
+## 1-org
 This repo is part of a multi-part guide that shows how to configure and deploy the example.com reference architecture described in Google Cloud security foundations guide (PDF). 
 
 ### Instructions: 
