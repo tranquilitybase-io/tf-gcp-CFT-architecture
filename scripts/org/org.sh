@@ -51,7 +51,7 @@ CLOUD_TF_WRAPPER_FILES=../terraform-example-foundation/build/tf-wrapper.sh
 [ -d $BUILD_FILES ] && { echo "copying build files"; cp $CLOUD_BUILD_FILES .; cp $CLOUD_TF_WRAPPER_FILES .;  } || { echo "Can't find build files"; exit 1; }
 
 
-Echo Change wrapper permissions
+echo Change wrapper permissions
 WRAPPER_FILE=./tf-wrapper.sh
 [ -f $WRAPPER_FILE ] && { echo "copying org files"; chmod 755 $WRAPPER_FILE; } || { echo "Can't find wrapper file"; exit 1; }
 
