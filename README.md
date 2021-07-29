@@ -57,6 +57,10 @@ Rename the file "terraform.example.tfvars" to "terraform.tfvars"
 	
 	make bootstrap
 
+Note the email address of the admin. You need this address in a later procedure.
+
+	 terraform output terraform_service_account
+
 ## 1-org
 This repo is part of a multi-part guide that shows how to configure and deploy the example.com reference architecture described in Google Cloud security foundations guide (PDF). 
 
@@ -64,13 +68,19 @@ This repo is part of a multi-part guide that shows how to configure and deploy t
 
 	cd ./tf-gcp-CFT-architecture/scripts/bootstrap
 	
-Edit the file called "terraform.example.tfvars"	
-Rename the file "terraform.example.tfvars" to "terraform.tfvars"	
-Edit the file called "env-variables-example.sh"
-Rename the file "env-variables-example.sh" to "env-variables.sh"
+Edit the file called "terraform.example.tfvars"	 with your project information
+
+Rename the file "terraform.example.tfvars" to "terraform.tfvars"
+
+    	mv terraform.example.tfvars terraform.tfvars
+
+Edit the file called "env-variables-example.sh" and rename the file "env-variables-example.sh" to env-variables.sh
+
+   	mv env-variables-example.sh env-variables.sh
 	
+Run org.sh
+
 	cd ../..
-	
 	make org
 
 
