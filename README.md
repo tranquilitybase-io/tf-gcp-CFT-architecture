@@ -8,6 +8,7 @@
 
      * [Prerequisites](#prerequisites)
      * [The Deployment Process (Overview)](#the-deployment-process-overview)
+     * [Roles and Required Access](#roles-and-access)
      * [0-bootstrap](#0-bootstrap)
      * [1-org](#1-org)
      * [2-environment](#2-environment)
@@ -39,6 +40,17 @@
 ## The Deployment Process (Overview)
 
 <img width="1018" alt="Screenshot 2021-07-27 at 11 43 57 am" src="https://user-images.githubusercontent.com/80045831/127141366-262007ca-c4a6-48c5-a0bc-b89bdeb694a8.png">
+
+## Roles and Required Access
+
+### User account :
+-
+-
+-
+### Service account : 
+-
+-
+
 
 
 ## 0-bootstrap
