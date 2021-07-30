@@ -69,6 +69,10 @@ Rename the file "terraform.example.tfvars" to "terraform.tfvars"
 	cd ../..
 	
 	make bootstrap
+	
+Go to the folder:
+	
+	tf-gcp-CFT-architecture/bootstrap/terraform-example-foundation/0-bootstrap$
 
 Note the email address of the admin. You need this address in a later procedure. under which folder?
 
@@ -87,7 +91,9 @@ Rename the file "terraform.example.tfvars" to "terraform.tfvars"
 
     	mv terraform.example.tfvars terraform.tfvars
 
-Edit the file called "env-variables-example.sh" and rename the file "env-variables-example.sh" to env-variables.sh
+Edit the file called "env-variables-example.sh" and rename the file "env-variables-example.sh" to env-variables.sh 
+export CLOUD_BUILD_PROJECT_ID=<project_id>
+Project Id is the project id of the CI/CD ex (prj-b-cicd-7a1a)
 
    	mv env-variables-example.sh env-variables.sh
 	
