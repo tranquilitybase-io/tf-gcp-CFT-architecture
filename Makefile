@@ -3,8 +3,8 @@ SHELL := /usr/bin/env bash
 
 .PHONY: bootstrap
 bootstrap:
-	@source scripts/bootstrap/bootstrap.sh
+	@source scripts/0-bootstrap/bootstrap.sh
 
 .PHONY: org
 org:
-	@source scripts/org/org.sh
+	@source scripts/1-org/org.sh
