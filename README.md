@@ -69,7 +69,7 @@ Rename the file "terraform.example.tfvars" to "terraform.tfvars"
 	
 	make bootstrap
 
-Note the email address of the admin. You need this address in a later procedure.
+Note the email address of the admin. You need this address in a later procedure. under which folder?
 
 	 terraform output terraform_service_account
 
