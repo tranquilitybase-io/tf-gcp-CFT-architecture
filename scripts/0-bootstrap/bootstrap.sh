@@ -17,7 +17,7 @@ PAST_TF_VARS_FILE=./terraform.tfvars
 [ -f $PAST_TF_VARS_FILE ] && { echo "Removing past deployment file "; rm $PAST_TF_VARS_FILE; } || echo "No past deployment files found"
 
 echo Copying in variable file
-TF_VARS_FILE=../../../scripts/bootstrap/terraform.tfvars
+TF_VARS_FILE=../../../scripts/0-bootstrap/terraform.tfvars
 [ -f $TF_VARS_FILE ] && { echo "Copying terraform.tfvars"; cp $TF_VARS_FILE .; } || { echo "can't find $TF_VARS_FILE"; exit 1; }
 
 echo Running terraform init/plan/apply

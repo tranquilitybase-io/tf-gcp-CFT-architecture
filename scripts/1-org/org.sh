@@ -62,7 +62,7 @@ TF_EXAMPLE_VARS=./envs/shared/terraform.example.tfvars
 
 
 echo Copying in needed variables
-TF_VARS=../../scripts/org/terraform.tfvars
+TF_VARS=../../scripts/1-org/terraform.tfvars
 COPY_LOCATION=./envs/shared
 [ -f $TF_VARS ] && { echo "Copying $TF_VARS to $COPY_LOCATION"; cp $TF_VARS $COPY_LOCATION; } || { echo "No $TF_VARS file found"; exit 1; }
 
