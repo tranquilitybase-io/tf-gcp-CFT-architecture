@@ -12,16 +12,18 @@ CFT_FOLDER=./terraform-example-foundation
 git clone https://github.com/terraform-google-modules/terraform-example-foundation.git
 
 echo looking for past env folder:
-GCP_POLICIES_FOLDER=./gcp-environments
-[ -d $GCP_POLICIES_FOLDER ] && { echo "Removing past deployment file: $GCP_POLICIES_FOLDER"; rm -rf $GCP_POLICIES_FOLDER; } || echo "No past deployments found"
+GCP_ENV_FOLDER=./gcp-environments
+[ -d $GCP_ENV_FOLDER ] && { echo "Removing past deployment file: $GCP_ENV_FOLDER"; rm -rf $GCP_ENV_FOLDER; } || echo "No past deployments found"
 
 echo Cloning gcp environments GSR
 gcloud source repos clone gcp-environments --project=$CLOUD_BUILD_PROJECT_ID
 cd gcp-environments
 
-echo Copying needed build files
+echo Checking out plan
 git checkout -b plan
-cp -RT ../terraform-example-foundation/2-environments/ .
+
+echo Copying needed build files
+cp -R ../terraform-example-foundation/2-environments/ .
 cp ../terraform-example-foundation/build/cloudbuild-tf-* .
 cp ../terraform-example-foundation/build/tf-wrapper.sh .
 chmod 755 ./tf-wrapper.sh
