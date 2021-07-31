@@ -2,6 +2,9 @@ echo looking for past deployments to delete:
 ENV_FOLDER=./env
 [ -d $ENV_FOLDER ] && { echo "Removing past deployment file $ENV_FOLDER"; rm -rf $ENV_FOLDER; } || echo "No past deployments found"
 
+echo sourcing required variables
+source ./scripts/2-environments/env-variables.sh
+
 echo Creating root env folder
 mkdir env
 cd ./env
