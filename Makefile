@@ -20,3 +20,7 @@ networks:
 .PHONY: projects
 projects:
 	@source scripts/4-projects/projects.sh
+
+.PHONY: app-infra
+app-infra:
+	@source scripts/5-app-infra/app-infra.sh
