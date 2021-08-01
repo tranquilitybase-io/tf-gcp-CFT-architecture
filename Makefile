@@ -12,3 +12,7 @@ org:
 .PHONY: env
 env:
 	@source scripts/2-environments/environments.sh
+
+.PHONY: networks
+networks:
+	@source scripts/3-networks/networks.sh
