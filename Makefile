@@ -8,3 +8,7 @@ bootstrap:
 .PHONY: org
 org:
 	@source scripts/1-org/org.sh
+
+.PHONY: env
+env:
+	@source scripts/2-environments/environments.sh

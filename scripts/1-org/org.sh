@@ -14,6 +14,12 @@ CFT_FOLDER=./terraform-example-foundation
 [ -d $CFT_FOLDER ] && { echo "Removing past deployment file: $CFT_FOLDER"; rm -rf $CFT_FOLDER; } || echo "No past deployments found"
 git clone https://github.com/terraform-google-modules/terraform-example-foundation.git
 
+echo Checkout latest release
+cd ./terraform-example-foundation/
+git checkout ed164ba
+cd ..
+
+
 echo Cloning gcp policies GSR
 GCP_POLICIES_FOLDER=./gcp-policies
 [ -d $GCP_POLICIES_FOLDER ] && { echo "Removing past deployment file: $GCP_POLICIES_FOLDER"; rm -rf $GCP_POLICIES_FOLDER; } || echo "No past deployments found"

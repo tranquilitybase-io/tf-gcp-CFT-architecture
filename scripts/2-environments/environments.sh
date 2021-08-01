@@ -14,6 +14,11 @@ CFT_FOLDER=./terraform-example-foundation
 [ -d $CFT_FOLDER ] && { echo "Removing past deployment file: $CFT_FOLDER"; rm -rf $CFT_FOLDER; } || echo "No past deployments found"
 git clone https://github.com/terraform-google-modules/terraform-example-foundation.git
 
+echo Checkout latest release
+cd ./terraform-example-foundation/
+git checkout ed164ba
+cd ..
+
 echo looking for past env folder:
 GCP_ENV_FOLDER=./gcp-environments
 [ -d $GCP_ENV_FOLDER ] && { echo "Removing past deployment file: $GCP_ENV_FOLDER"; rm -rf $GCP_ENV_FOLDER; } || echo "No past deployments found"
@@ -33,7 +38,7 @@ chmod 755 ./tf-wrapper.sh
 
 echo Removing unneeded variables
 TF_EXAMPLE_VARS=./terraform.example.tfvars
-[ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded terraform.example.tfvars file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No terraform.example.tfvars file found"; exit 1; }
+[ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded terraform.example.tfvars file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No terraform.example.tfvars file found"; }
 
 echo Copying in needed variables
 TF_VARS=../../scripts/2-environments/terraform.tfvars
