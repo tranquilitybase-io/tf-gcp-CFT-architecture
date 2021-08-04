@@ -23,4 +23,4 @@ TF_VARS_FILE=../../../scripts/bootstrap/terraform.tfvars
 echo Running terraform init/plan/apply
 terraform init
 terraform plan
-terraform apply
+terraform apply -auto-approve
