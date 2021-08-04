@@ -53,14 +53,14 @@ git push --set-upstream origin plan --force
 sleep 300
 
 git checkout -b development
-git push origin development
+git push origin development --force
 
 sleep 300
 
 git checkout -b non-production
-git push origin non-production
+git push origin non-production --force
 
 sleep 300
 
 git checkout -b production
-git push origin production
+git push origin production --force
