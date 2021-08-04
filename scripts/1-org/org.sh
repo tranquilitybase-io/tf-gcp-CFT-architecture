@@ -2,7 +2,7 @@ ORG_FOLDER=./org
 [ -d $ORG_FOLDER ] && { echo "Removing past deployment file $ORG_FOLDER"; rm -rf $ORG_FOLDER; } || echo "No past deployments found"
 
 echo sourcing required variables
-source ./scripts/org/env-variables.sh
+source ./scripts/1-org/env-variables.sh
 
 
 echo Creating org folder
@@ -13,6 +13,12 @@ echo Cloning CFT
 CFT_FOLDER=./terraform-example-foundation
 [ -d $CFT_FOLDER ] && { echo "Removing past deployment file: $CFT_FOLDER"; rm -rf $CFT_FOLDER; } || echo "No past deployments found"
 git clone https://github.com/terraform-google-modules/terraform-example-foundation.git
+
+echo Checkout latest release
+cd ./terraform-example-foundation/
+git checkout ed164ba
+cd ..
+
 
 echo Cloning gcp policies GSR
 GCP_POLICIES_FOLDER=./gcp-policies
@@ -62,7 +68,7 @@ TF_EXAMPLE_VARS=./envs/shared/terraform.example.tfvars
 
 
 echo Copying in needed variables
-TF_VARS=../../scripts/org/terraform.tfvars
+TF_VARS=../../scripts/1-org/terraform.tfvars
 COPY_LOCATION=./envs/shared
 [ -f $TF_VARS ] && { echo "Copying $TF_VARS to $COPY_LOCATION"; cp $TF_VARS $COPY_LOCATION; } || { echo "No $TF_VARS file found"; exit 1; }
 
