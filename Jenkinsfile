@@ -59,6 +59,7 @@ pipeline {
                     '''
                 }
             }
+        }
             stage('Deploy CFT Org1') {
             steps {
                 container('gcloud') {
@@ -76,3 +77,4 @@ pipeline {
     }
     
 } 
+
