@@ -18,7 +18,7 @@ pipeline {
                         cat $GOOGLE_APPLICATION_CREDENTIALS
                         gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
                         gcloud config list
-                    '''
+                       '''
                 }
             }
             
@@ -34,7 +34,7 @@ pipeline {
                         mv /tmp/terraform /usr/local/bin
                         rm /tmp/terraform.zip
                         terraform --version
-                    '''
+                        '''
                 }
             }
 
@@ -56,10 +56,10 @@ pipeline {
                         cd ../..
                         make bootstrap
                   
-                    '''
+                        '''
+                    }
                 }
             }
-        }
             stage('Deploy CFT Org1') {
             steps {
                 container('gcloud') {
