@@ -2,7 +2,7 @@ pipeline {
     agent {
         kubernetes {
           label 'kubepod'  // all your pods will be named with this prefix, followed by a unique id
-          defaultContainer 'gcloud'  // define a default container if more than a few stages use it, will default to jnlp container
+          //defaultContainer 'gcloud'  // define a default container if more than a few stages use it, will default to jnlp container
         }
     }
     //environment {
@@ -10,14 +10,15 @@ pipeline {
         //def environment_params = "${environment_params}"
         
   // }
-//     stages {
+    stages {
         
-//         stage ('Test received params') {
-//             steps {
+        stage ('Test received params') {
+            steps {
+                sh 'echo Test received params'
 //                 sh "echo \$landing_zone_params"
 //                 sh "echo \$environment_params"
-//             }
-//         }
+            }
+        }
         stage('Activate GCP Service Account and Set Project') {
             steps {
                 
