@@ -10,14 +10,14 @@ pipeline {
         //def environment_params = "${environment_params}"
         
   // }
-    stages {
+//     stages {
         
-        stage ('Test received params') {
-            steps {
-                sh "echo \$landing_zone_params"
-                sh "echo \$environment_params"
-            }
-        }
+//         stage ('Test received params') {
+//             steps {
+//                 sh "echo \$landing_zone_params"
+//                 sh "echo \$environment_params"
+//             }
+//         }
         stage('Activate GCP Service Account and Set Project') {
             steps {
                 
