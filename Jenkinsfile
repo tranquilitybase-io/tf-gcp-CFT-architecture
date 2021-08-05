@@ -4,7 +4,7 @@ pipeline {
           label 'kubepod'  // all your pods will be named with this prefix, followed by a unique id
           defaultContainer 'gcloud'  // define a default container if more than a few stages use it, will default to jnlp container
         }
-    //}
+    }
     //environment {
        // def landing_zone_params = "${landing_zone_params}"
         //def environment_params = "${environment_params}"
