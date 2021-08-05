@@ -47,7 +47,7 @@ pipeline {
                         pwd
                         ls
                         echo $org_id
-                        cd ./tf-gcp-CFT-architecture/scripts/bootstrap
+                        cd ./scripts/bootstrap
                         rm terraform.example.tfvars
                         echo org_id = "\"$org_id"\">> terraform.tfvars
                         echo billing_account = "" >> terraform.tfvars
