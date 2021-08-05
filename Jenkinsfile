@@ -51,8 +51,8 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh ''' 
-                         chmod +x ./scripts/Jenkins-bootstrap-deploy.sh
-                         . ./scripts/Jenkins-bootstrap-deploy.sh
+                         chmod +x ./scripts/bootstrap//Jenkins-bootstrap-deploy.sh
+                         . ./scripts/bootstrap/Jenkins-bootstrap-deploy.sh
                          '''
 
                      }
