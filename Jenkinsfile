@@ -5,19 +5,19 @@ pipeline {
           defaultContainer 'gcloud'  // define a default container if more than a few stages use it, will default to jnlp container
         }
     }
-    //environment {
-       // def landing_zone_params = "${landing_zone_params}"
-        //def environment_params = "${environment_params}"
+    environment {
+       def landing_zone_params = "${landing_zone_params}"
+        def environment_params = "${environment_params}"
         
-  // }
-//     stages {
+  }
+    stages {
         
-//         stage ('Test received params') {
-//             steps {
-//                 sh "echo \$landing_zone_params"
-//                 sh "echo \$environment_params"
-//             }
-//         }
+        stage ('Test received params') {
+            steps {
+                sh "echo \$landing_zone_params"
+                sh "echo \$environment_params"
+            }
+        }
         stage('Activate GCP Service Account and Set Project') {
             steps {
                 
@@ -30,7 +30,7 @@ pipeline {
             }
             
         }
-       stage('Install Dependencies') {
+       stage('Setup Terraform & Dependencies') {
              steps {
                  container('gcloud') {
                      sh ''' 
@@ -49,22 +49,11 @@ pipeline {
          stage('Deploy CFT Bootstrap') {
              steps {
                  container('gcloud') {
-                     sh ''' 
-                         echo $org_id
-                         cd ./scripts/bootstrap
-                         rm terraform.example.tfvars && touch terraform.tfvars
-                         echo org_id = \"'$org_id'\">> terraform.tfvars
-                         echo billing_account = \"'$billing_account'\" >> terraform.tfvars
-                         echo group_org_admins = \"'$group_org_admins'\" >> terraform.tfvars
-                         echo group_billing_admins = \"'$group_billing_admins'\" >> terraform.tfvars
-                         echo default_region = \"'$default_region'\" >> terraform.tfvars
-                         echo parent_folder = "\'$parent_folder'\" >> terraform.tfvars
-                         (sed -E "s/'([^']*)'/\"\1\"/g" terraform.tfvars) > terraform.tfvars
-                         cat terraform.tfvars
-                         cd ../..
+                     sh "cd ./scripts/bootstrap"
+                     sh "echo \$activator_params | jq '.' > deployment_code/activator_params.json"                         
+                     sh "cd ../.."
                         
                   
-                        '''
                      }
                  }
              }
