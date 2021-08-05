@@ -6,7 +6,7 @@ pipeline {
         }
     }
     environment {
-        ORG_ID = credentials('org_id')
+        //ORG_ID = credentials('org_id')
         
     }
     stages {
