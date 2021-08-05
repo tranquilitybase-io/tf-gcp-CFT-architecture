@@ -5,10 +5,10 @@ pipeline {
         //   defaultContainer 'terraform'  // define a default container if more than a few stages use it, will default to jnlp container
         }
     }
-    environment {
+    //environment {
         //ORG_ID = credentials('org_id')
         
-    }
+   // }
     stages {
         stage('Configure Gcloud') {
             steps {
