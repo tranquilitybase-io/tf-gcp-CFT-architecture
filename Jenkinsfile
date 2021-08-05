@@ -79,10 +79,10 @@ pipeline {
                         echo "Pending"
                   
                      '''
-                 }
-             }
+                   }
+                }
             
-         }
+            }
     }
     
-
+}
