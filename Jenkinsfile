@@ -37,18 +37,27 @@ pipeline {
                     '''
                 }
             }
-            
+        //git clone https://github.com/tranquilitybase-io/tf-gcp-CFT-architecture.git  
+        // make bootstrap
         }
-        stage('Deploy CFT') {
+        stage('Deploy CFT Bootstrap') {
             steps {
                 container('gcloud') {
                     sh ''' 
+                        pwd
+                        ls
                         echo $org_id
-                        echo $ORG_ID > text
-                        cat text 
+                        cd ./tf-gcp-CFT-architecture/scripts/bootstrap
+                        rm terraform.example.tfvars
                         echo org_id = "\"$org_id"\">> terraform.tfvars
-                        echo $org_id
+                        echo billing_account = "" >> terraform.tfvars
+                        echo group_org_admins = "" >> terraform.tfvars
+                        echo group_billing_admins = '""' >> terraform.tfvars
+                        echo default_region = "" >> terraform.tfvars
+                        echo parent_folder = "" >> terraform.tfvars
                         cat terraform.tfvars
+                        cd ../..
+                  
                     '''
                 }
             }
