@@ -52,7 +52,7 @@ pipeline {
                  container('gcloud') {
                      sh ''' 
                          chmod +x ./scripts/Jenkins-bootstrap-deploy.sh
-                         . ./Jenkins-bootstrap-deploy.sh
+                         . ./scripts/Jenkins-bootstrap-deploy.sh
                          '''
 //                          echo $org_id
 //                          cd ./scripts/bootstrap
