@@ -52,7 +52,7 @@ pipeline {
                         echo group_billing_admins = \"'$group_billing_admins'\" >> terraform.tfvars
                         echo default_region = \"'$default_region'\" >> terraform.tfvars
                         echo parent_folder = "\'$parent_folder'\" >> terraform.tfvars
-                        sed -E "s/'([^']*)'/\"\1\"/g" terraform.tfvars
+                        sed -E \"s/'([^']*)'/\"\1\"/g\" terraform.tfvars
                         cat terraform.tfvars
                         cd ../..
                         
