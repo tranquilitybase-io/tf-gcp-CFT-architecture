@@ -45,7 +45,7 @@ pipeline {
                     sh ''' 
                         echo $org_id
                         cd ./scripts/bootstrap
-                        rm terraform.example.tfvars
+                        rm terraform.example.tfvars && touch terraform.tfvars
                         echo org_id = "\"$org_id"\">> terraform.tfvars
                         echo billing_account = "\"$billing_account"\" >> terraform.tfvars
                         echo group_org_admins = "\"$group_org_admins"\" >> terraform.tfvars
@@ -63,7 +63,10 @@ pipeline {
             steps {
                 container('gcloud') {
                     sh ''' 
-                        echo "Pending"
+                       cd ./scripts/org
+                       rm terraform.example.tfvars env-variables-example.sh && touch terraform.tfvars env-variables.sh
+                       echo export CLOUD_BUILD_PROJECT_ID=prj-b-cicd >> env-variables.sh
+                       echo "Pending"
                   
                     '''
                 }
