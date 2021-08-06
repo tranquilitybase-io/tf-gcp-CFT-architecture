@@ -56,6 +56,12 @@ WRAPPER_FILE=./tf-wrapper.sh
 [ -f $WRAPPER_FILE ] && { echo "copying org files"; chmod 755 $WRAPPER_FILE; } || { echo "Can't find wrapper file"; exit 1; }
 
 
+echo #########
+ls
+pwd
+echo #########
+
+
 echo Removing unneeded variables
 TF_EXAMPLE_VARS=./envs/shared/terraform.example.tfvars
 [ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded terraform.example.tfvars file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No terraform.example.tfvars file found";}
