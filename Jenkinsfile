@@ -6,7 +6,7 @@ pipeline {
         }
     }
     environment {
-       def landing_zone_params = '${landing_zone_params}'
+       def landing_zone_params = "${landing_zone_params}"
         def environment_params = "${environment_params}"
         
   }
@@ -34,13 +34,7 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh ''' 
-                         apt-get -y install jq wget unzip
-                         wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-                         unzip -q /tmp/terraform.zip -d /tmp
-                         chmod +x /tmp/terraform
-                         mv /tmp/terraform /usr/local/bin
-                         rm /tmp/terraform.zip
-                         terraform --version
+
                          '''
                  }
              }
