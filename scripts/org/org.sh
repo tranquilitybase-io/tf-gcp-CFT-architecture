@@ -58,7 +58,7 @@ WRAPPER_FILE=./tf-wrapper.sh
 
 echo Removing unneeded variables
 TF_EXAMPLE_VARS=./envs/shared/terraform.example.tfvars
-[ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded terraform.example.tfvars file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No terraform.example.tfvars file found"}
+[ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded terraform.example.tfvars file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No terraform.example.tfvars file found";}
 
 
 echo Copying in needed variables
