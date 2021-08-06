@@ -53,6 +53,7 @@ pipeline {
                      sh "git clone https://github.com/terraform-google-modules/terraform-example-foundation.git"
                      sh "cd ./terraform-example-foundation/0-bootstrap/"
                      sh "echo \$landing_zone_params | jq '.' > terraform.tfvars.json"
+                     sh "cat terraform.tfvars.json"
                      sh "echo Running terraform init"
                      sh "terraform init"
                      sh "echo Running terraform plan"
