@@ -13,6 +13,7 @@ echo default_region = "\"$default_region"\" >> terraform.tfvars
 echo scc_notification_name = "\"$scc_notification_name"\" >> terraform.tfvars
 echo create_access_context_manager_access_policy = "false" >> terraform.tfvars
 echo parent_folder =  "\"$parent_folder "\" >> terraform.tfvars
+cat terraform.tfvars
 cd ../..
-make org
+#make org
 
