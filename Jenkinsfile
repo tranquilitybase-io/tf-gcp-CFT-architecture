@@ -33,8 +33,8 @@ pipeline {
        stage('Setup Terraform & Dependencies') {
              steps {
                  container('gcloud') {
-                     sh "echo \'$landing_zone_params\' | jq '.'"
                      sh ''' 
+                          apt-get -y install jq wget unzip
 
                          '''
                  }
