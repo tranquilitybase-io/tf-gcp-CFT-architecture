@@ -52,12 +52,9 @@ pipeline {
 //                      sh "cd ./scripts/bootstrap"
                      sh "echo \$landing_zone_params | jq '.' > landing_zone_params.json"                         
                      sh "make bootstrap"
-                     }
                  }
+               
              }
-          stage('Deploy CFT Org') {
-        
-            
          }
     }
 }
