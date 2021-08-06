@@ -52,11 +52,11 @@ pipeline {
 //                      sh "cd ./scripts/bootstrap"
                      sh "git clone https://github.com/terraform-google-modules/terraform-example-foundation.git"
                      sh "cd ./terraform-example-foundation/0-bootstrap/"
-                     sh "echo \$landing_zone_params | jq '.' > landing_zone_params.json"
+                     sh "echo \$landing_zone_params | jq '.' > terraform.tfvars.json"
                      sh "echo Running terraform init"
                      sh "terraform init"
                      sh "echo Running terraform plan"
-                     sh "terraform plan -out cft-bootstrap-plan -var-file=landing_zone_params.json"
+                     sh "terraform plan -out cft-bootstrap-plan"
                      sh "terraform apply -auto-approve cft-bootstrap-plan"
                  }
                
