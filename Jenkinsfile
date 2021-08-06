@@ -49,26 +49,14 @@ pipeline {
          stage('Deploy CFT Bootstrap') {
              steps {
                  container('gcloud') {
-                     sh "cd ./scripts/bootstrap"
-                     sh "echo \$activator_params | jq '.' > deployment_code/activator_params.json"                         
-                     sh "cd ../.."
-                        
-                  
+//                      sh "cd ./scripts/bootstrap"
+                     sh "echo \$landing_zone_params | jq '.' > landing_zone_params.json"                         
+                     sh "make bootstrap"
                      }
                  }
              }
-             stage('Deploy CFT Org1') {
-             steps {
-                 container('gcloud') {
-                     sh ''' 
-                        cd ./scripts/org
-                        rm terraform.example.tfvars env-variables-example.sh && touch terraform.tfvars env-variables.sh
-                        echo export CLOUD_BUILD_PROJECT_ID=prj-b-cicd >> env-variables.sh
-                        echo "Pending"
-                  
-                     '''
-                 }
-             }
+          stage('Deploy CFT Org') {
+        
             
          }
     }
