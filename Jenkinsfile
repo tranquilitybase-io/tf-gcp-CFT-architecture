@@ -34,9 +34,14 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh ''' 
-                          apt-get -y install jq wget unzip
-
-                         '''
+                         apt-get -y install jq wget unzip
+                         wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+                         unzip -q /tmp/terraform.zip -d /tmp
+                         chmod +x /tmp/terraform
+                         mv /tmp/terraform /usr/local/bin
+                         rm /tmp/terraform.zip
+                         terraform --version
+                        '''
                  }
              }
 
@@ -44,7 +49,6 @@ pipeline {
          stage('Deploy CFT Bootstrap') {
              steps {
                  container('gcloud') {
-//                      sh "cd ./scripts/bootstrap"
                      sh "git clone https://github.com/terraform-google-modules/terraform-example-foundation.git"
                      sh "cd ./terraform-example-foundation/0-bootstrap/"
                      sh "echo \'$landing_zone_params\' | jq '.' > terraform.tfvars.json"
