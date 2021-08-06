@@ -10,5 +10,5 @@ echo default_region = "\"$default_region"\" >> terraform.tfvars
 echo parent_folder = "\"$parent_folder"\" >> terraform.tfvars
 cat terraform.tfvars
 cd ../..
-make bootstrap
+#make bootstrap
 
