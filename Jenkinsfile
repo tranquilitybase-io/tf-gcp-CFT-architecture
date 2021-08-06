@@ -50,7 +50,7 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh "ls && pwd"
-                     sh "echo \'$landing_zone_params\' | jq '.' > terraform-example-foundation/0-bootstrap/terraform.tfvars.json
+                     sh "echo \'$landing_zone_params\' | jq '.' > terraform-example-foundation/0-bootstrap/terraform.tfvars.json"
                      sh "cat terraform-example-foundation/0-bootstrap/terraform.tfvars.json"
                      sh "terraform init terraform-example-foundation/0-bootstrap/"
                      sh "terraform plan -out cft-bootstrap-plan terraform-example-foundation/0-bootstrap/"
