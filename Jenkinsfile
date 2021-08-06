@@ -51,9 +51,9 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh ''' 
-                         chmod +x ./scripts/bootstrap//Jenkins-bootstrap-deploy.sh
+                         chmod +x ./scripts/bootstrap/Jenkins-bootstrap-deploy.sh
                          . ./scripts/bootstrap/Jenkins-bootstrap-deploy.sh
-                         '''
+                        '''
 
                      }
                  }
@@ -62,12 +62,10 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh ''' 
-                        cd ./scripts/org
-                        rm terraform.example.tfvars env-variables-example.sh && touch terraform.tfvars env-variables.sh
-                        echo export CLOUD_BUILD_PROJECT_ID=prj-b-cicd >> env-variables.sh
-                        echo "Pending"
+                        chmod +x ./scripts/org/Jenkins-bootstrap-deploy.sh
+                        . ./scripts/org/Jenkins-org-deploy.sh
                   
-                     '''
+                        '''
                    }
                 }
             
