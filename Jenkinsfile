@@ -62,7 +62,7 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh ''' 
-                        chmod +x ./scripts/org/Jenkins-bootstrap-deploy.sh
+                        chmod +x ./scripts/org/Jenkins-org-deploy.sh
                         . ./scripts/org/Jenkins-org-deploy.sh
                   
                         '''
