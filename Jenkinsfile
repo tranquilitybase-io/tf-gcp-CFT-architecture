@@ -55,6 +55,7 @@ pipeline {
                      sh "cat $bootstrap_folder/terraform.tfvars.json"
                      sh "terraform init $bootstrap_folder"
                      sh "terraform plan -out cft-bootstrap-plan -var-file=$bootstrap_folder/terraform.tfvars.json $bootstrap_folder/"
+                     sh "ls -ltr"
                      sh "terraform apply -auto-approve cft-bootstrap-plan"
                  }
                
