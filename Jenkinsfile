@@ -49,7 +49,7 @@ pipeline {
          stage('Deploy CFT Bootstrap') {
              steps {
                  container('gcloud') {
-                     sh "ls && pwd"
+                     sh "git clone https://github.com/terraform-google-modules/terraform-example-foundation.git"
                      sh "echo \'$landing_zone_params\' | jq '.' > terraform-example-foundation/0-bootstrap/terraform.tfvars.json"
                      sh "cat terraform-example-foundation/0-bootstrap/terraform.tfvars.json"
                      sh "terraform init terraform-example-foundation/0-bootstrap/"
