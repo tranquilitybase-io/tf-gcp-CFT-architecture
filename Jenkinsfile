@@ -8,7 +8,7 @@ pipeline {
     environment {
        def landing_zone_params = "${landing_zone_params}"
        def environment_params = "${environment_params}"
-       def bootstrap_folder = "terraform-example-foundation/0-bootstrap" 
+       //def bootstrap_folder = "terraform-example-foundation/0-bootstrap" 
         
   }
     stages {
