@@ -1,8 +1,8 @@
 ORG_FOLDER=./org
 [ -d $ORG_FOLDER ] && { echo "Removing past deployment file $ORG_FOLDER"; rm -rf $ORG_FOLDER; } || echo "No past deployments found"
 
-//echo sourcing required variables
-//source ./scripts/1-org/env-variables.sh
+#echo sourcing required variables
+#source ./scripts/1-org/env-variables.sh
 
 
 echo Creating org folder
