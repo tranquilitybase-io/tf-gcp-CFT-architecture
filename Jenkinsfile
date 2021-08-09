@@ -51,11 +51,12 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh '''
-                         ls
                          echo $environment_params
-                         echo \"$environment_params\" | jq "." > terraform.auto.tfvars.json
+                         cd ./scripts/0-bootstrap/ && echo \"$environment_params\" | jq "." > terraform.auto.tfvars.json
                          cat terraform.auto.tfvars.json
+                         cd ../.. && make bootstrap
                          '''
+                     
                      //sh "ls"
                      //sh "echo $environment_params"
                      //sh "echo \'$environment_params\' | jq '.' > terraform.auto.tfvars.json"
