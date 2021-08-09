@@ -8,7 +8,7 @@ pipeline {
     environment {
        def landing_zone_params = "${landing_zone_params}"
        def environment_params = "${environment_params}"
-       //def bootstrap_folder = "terraform-example-foundation/0-bootstrap" 
+       
         
   }
     stages {
@@ -55,16 +55,10 @@ pipeline {
                          cd ./scripts/0-bootstrap/ && echo \"$environment_params\" | jq "." > terraform.auto.tfvars.json
                          cat terraform.auto.tfvars.json
                          cd ../.. && make bootstrap
+                         echo "bootstrap layer done"
+                         sleep 30
                          '''
-                     
-                     //sh "ls"
-                     //sh "echo $environment_params"
-                     //sh "echo \'$environment_params\' | jq '.' > terraform.auto.tfvars.json"
-                     //sh "cat terraform.auto.tfvars.json"
-                     //sh "terraform init $bootstrap_folder"
-                     //sh "terraform plan -out cft-bootstrap-plan -var-file=$bootstrap_folder/terraform.tfvars.json $bootstrap_folder/"
-                     //sh "ls -ltr"
-                     //sh "terraform apply -auto-approve cft-bootstrap-plan"
+    
                  }
                
              }
