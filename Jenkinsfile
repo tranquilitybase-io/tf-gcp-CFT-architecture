@@ -66,9 +66,9 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh '''
-                         cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id) \
-                         && export terraform_service_account=$(terraform output terraform_service_account)
-                         cd ./../../../scripts/0-bootstrap/ && sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}') \ &&
+                         cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
+                         export terraform_service_account=$(terraform output terraform_service_account)
+                         cd ./../../../scripts/0-bootstrap/ && sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}')
                          echo \"$environment_params\" | jq "." > terraform.auto.tfvars.json && echo \"$sa_json\" | jq "." >> terraform.auto.tfvars.json
                          cat terraform.auto.tfvars.json
                          cd ../.. && make org
