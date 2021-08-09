@@ -51,8 +51,8 @@ pipeline {
              steps {
                  container('gcloud') {
                      //sh "git clone https://github.com/terraform-google-modules/terraform-example-foundation.git"
-                     sh "echo \'$landing_zone_params\' | jq '.' > $bootstrap_folder/terraform.tfvars.json"
-                     sh "cat $bootstrap_folder/terraform.tfvars.json"
+                     sh "echo \'$landing_zone_params\' | jq '.' > ./terraform.tfvars.json"
+                     sh "cat ./terraform.tfvars.json"
                      //sh "terraform init $bootstrap_folder"
                      //sh "terraform plan -out cft-bootstrap-plan -var-file=$bootstrap_folder/terraform.tfvars.json $bootstrap_folder/"
                      //sh "ls -ltr"
