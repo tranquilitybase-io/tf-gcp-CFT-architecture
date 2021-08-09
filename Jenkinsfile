@@ -50,10 +50,16 @@ pipeline {
          stage('Deploy CFT Bootstrap') {
              steps {
                  container('gcloud') {
-                     //sh "git clone https://github.com/terraform-google-modules/terraform-example-foundation.git"
-                     sh "echo $environment_params"
-                     sh "echo \'$environment_params\' | jq '.' > terraform.tfvars.json"
-                     sh "cat terraform.tfvars.json"
+                     sh '''
+                         ls
+                         echo $environment_params
+                         echo \'$environment_params\' | jq '.' > terraform.auto.tfvars.json
+                         cat terraform.auto.tfvars.json"
+                         '''
+                     //sh "ls"
+                     //sh "echo $environment_params"
+                     //sh "echo \'$environment_params\' | jq '.' > terraform.auto.tfvars.json"
+                     //sh "cat terraform.auto.tfvars.json"
                      //sh "terraform init $bootstrap_folder"
                      //sh "terraform plan -out cft-bootstrap-plan -var-file=$bootstrap_folder/terraform.tfvars.json $bootstrap_folder/"
                      //sh "ls -ltr"
