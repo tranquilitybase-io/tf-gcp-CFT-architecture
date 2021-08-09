@@ -47,7 +47,7 @@ pipeline {
              }
 
          }
-         stage('Deploy CFT Bootstrap') {
+         stage('Deploy CFT 0-bootstrap') {
              steps {
                  container('gcloud') {
                      sh '''
@@ -56,12 +56,32 @@ pipeline {
                          cat terraform.auto.tfvars.json
                          cd ../.. && make bootstrap
                          echo "bootstrap layer done"
-                         sleep 30
                          '''
     
                  }
                
              }
          }
+          stage('Deploy CFT 1-org') {
+             steps {
+                 container('gcloud') {
+                     sh '''
+                         cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id) \
+                         && export terraform_service_account=$(terraform output terraform_service_account)
+                         cd ./../../../scripts/0-bootstrap/ && echo \"$environment_params\" | jq "." > terraform.auto.tfvars.json
+                         cat terraform.auto.tfvars.json
+                         cd ../.. && make org
+                         echo "1-org layer done"
+                         '''
+    
+                 }
+               
+             }
+         }
+    
+    
     }
+    
+    
+    
 }
