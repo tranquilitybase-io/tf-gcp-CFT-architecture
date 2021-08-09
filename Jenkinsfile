@@ -53,8 +53,8 @@ pipeline {
                      sh '''
                          ls
                          echo $environment_params
-                         echo \'$environment_params\' | jq '.' > terraform.auto.tfvars.json
-                         cat terraform.auto.tfvars.json"
+                         echo \"$environment_params\" | jq "." > terraform.auto.tfvars.json
+                         cat terraform.auto.tfvars.json
                          '''
                      //sh "ls"
                      //sh "echo $environment_params"
