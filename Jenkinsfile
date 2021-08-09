@@ -71,10 +71,9 @@ pipeline {
                          cd ./../../../scripts/0-bootstrap/ && sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}') \ &&
                          echo \"$environment_params\" | jq "." > terraform.auto.tfvars.json && echo \"$sa_json\" | jq "." >> terraform.auto.tfvars.json
                          cat terraform.auto.tfvars.json
-                        
+                         cd ../.. && make org
+                         echo "1-org layer done"
                          '''
-//                      // cd ../.. && make org
-//                         echo "1-org layer done"
     
                  }
                
