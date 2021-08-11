@@ -66,14 +66,16 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh '''
-                         cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
-                         export terraform_service_account=$(terraform output terraform_service_account)
-                         cd ./../../../scripts/bootstrap/ && sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}') && rm terraform.example.tfvars 
-                         echo \"$environment_params\" | jq > terraform.auto.tfvars.json && echo \"$sa_json\" | jq >> terraform.auto.tfvars.json
-                         cat terraform.auto.tfvars.json
-                         cd ../.. && make org
-                         echo "1-org layer done"
-                         '''
+                        echo "Done"
+                        '''
+//                          cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
+//                          export terraform_service_account=$(terraform output terraform_service_account)
+//                          cd ./../../../scripts/bootstrap/ && sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}') && rm terraform.example.tfvars 
+//                          echo \"$environment_params\" | jq > terraform.auto.tfvars.json && echo \"$sa_json\" | jq >> terraform.auto.tfvars.json
+//                          cat terraform.auto.tfvars.json
+//                          cd ../.. && make org
+//                          echo "1-org layer done"
+//                          '''
     
                  }
                
