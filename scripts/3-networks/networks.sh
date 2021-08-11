@@ -37,7 +37,7 @@ chmod 755 ./tf-wrapper.sh
 
 echo Removing unneeded access_context.auto.example.tfvars
 TF_EXAMPLE_VARS=./access_context.auto.example.tfvars
-[ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded $TF_EXAMPLE_VARS file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No $TF_EXAMPLE_VARS file found"; exit 1; }
+[ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded $TF_EXAMPLE_VARS file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No $TF_EXAMPLE_VARS file found"; }
 
 echo Copying in needed access_context.auto.tfvars
 TF_VARS=../../scripts/3-networks/access_context.auto.tfvars
@@ -46,7 +46,7 @@ COPY_LOCATION=.
 
 echo Removing unneeded common.auto.example.tfvars
 TF_EXAMPLE_VARS=./common.auto.example.tfvars
-[ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded $TF_EXAMPLE_VARS file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No $TF_EXAMPLE_VARS file found"; exit 1; }
+[ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded $TF_EXAMPLE_VARS file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No $TF_EXAMPLE_VARS file found"; }
 
 echo Copying in needed common.auto.tfvars
 TF_VARS=../../scripts/3-networks/common.auto.tfvars
@@ -55,7 +55,7 @@ COPY_LOCATION=.
 
 echo Removing unneeded shared.auto.example.tfvars
 TF_EXAMPLE_VARS=./shared.auto.example.tfvars
-[ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded $TF_EXAMPLE_VARS file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No $TF_EXAMPLE_VARS file found"; exit 1; }
+[ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded $TF_EXAMPLE_VARS file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No $TF_EXAMPLE_VARS file found"; }
 
 echo Copying in needed shared.auto.tfvars
 TF_VARS=../../scripts/3-networks/shared.auto.tfvars
@@ -68,7 +68,7 @@ git commit -m 'Your message'
 
 echo Removing unneeded backend example file
 TF_EXAMPLE_VARS=./envs/shared/backend.tf
-[ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded $TF_EXAMPLE_VARS file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No $TF_EXAMPLE_VARS file found"; exit 1; }
+[ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded $TF_EXAMPLE_VARS file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No $TF_EXAMPLE_VARS file found"; }
 
 echo Copying in needed backend example file
 TF_VARS=../../scripts/3-networks/backend.tf

@@ -64,7 +64,7 @@ TF_EXAMPLE_VARS=./bu1-development.auto.example.tfvars
 echo Copying in needed bu1-development.auto.tfvars
 TF_VARS=../../scripts/5-app-infra/bu1-development.auto.tfvars
 COPY_LOCATION=.
-[ -f $TF_VARS ] && { echo "Copying $TF_VARS to $COPY_LOCATION"; cp $TF_VARS $COPY_LOCATION; } || { echo "No $TF_VARS file found";  }
+[ -f $TF_VARS ] && { echo "Copying $TF_VARS to $COPY_LOCATION"; cp $TF_VARS $COPY_LOCATION; } || { echo "No $TF_VARS file found"; exit 1; }
 
 echo Removing unneeded bu1-non-production.auto.example.tfvars
 TF_EXAMPLE_VARS=./bu1-non-production.auto.example.tfvars
@@ -73,16 +73,16 @@ TF_EXAMPLE_VARS=./bu1-non-production.auto.example.tfvars
 echo Copying in needed bu1-non-production.auto.tfvars
 TF_VARS=../../scripts/5-app-infra/bu1-non-production.auto.tfvars
 COPY_LOCATION=.
-[ -f $TF_VARS ] && { echo "Copying $TF_VARS to $COPY_LOCATION"; cp $TF_VARS $COPY_LOCATION; } || { echo "No $TF_VARS file found";  }
+[ -f $TF_VARS ] && { echo "Copying $TF_VARS to $COPY_LOCATION"; cp $TF_VARS $COPY_LOCATION; } || { echo "No $TF_VARS file found"; exit 1; }
 
 echo Removing unneeded bu1-production.auto.example.tfvars
 TF_EXAMPLE_VARS=./bu1-production.auto.example.tfvars
 [ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded $TF_EXAMPLE_VARS file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No $TF_EXAMPLE_VARS file found"; }
 
-echo Copying in needed bu1-production.auto.example.tfvars
-TF_VARS=../../scripts/5-app-infra/bu1-production.auto.example.tfvars
+echo Copying in needed bu1-production.auto.tfvars
+TF_VARS=../../scripts/5-app-infra/bu1-production.auto.tfvars
 COPY_LOCATION=.
-[ -f $TF_VARS ] && { echo "Copying $TF_VARS to $COPY_LOCATION"; cp $TF_VARS $COPY_LOCATION; } || { echo "No $TF_VARS file found";  }
+[ -f $TF_VARS ] && { echo "Copying $TF_VARS to $COPY_LOCATION"; cp $TF_VARS $COPY_LOCATION; } || { echo "No $TF_VARS file found"; exit 1;  }
 
 echo Removing unneeded common.auto.example.tfvars
 TF_EXAMPLE_VARS=./common.auto.example.tfvars
@@ -91,7 +91,7 @@ TF_EXAMPLE_VARS=./common.auto.example.tfvars
 echo Copying in needed common.auto.tfvars
 TF_VARS=../../scripts/5-app-infra/common.auto.tfvars
 COPY_LOCATION=.
-[ -f $TF_VARS ] && { echo "Copying $TF_VARS to $COPY_LOCATION"; cp $TF_VARS $COPY_LOCATION; } || { echo "No $TF_VARS file found";  }
+[ -f $TF_VARS ] && { echo "Copying $TF_VARS to $COPY_LOCATION"; cp $TF_VARS $COPY_LOCATION; } || { echo "No $TF_VARS file found"; exit 1; }
 
 
 git add .
