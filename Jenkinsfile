@@ -9,6 +9,11 @@ pipeline {
        def landing_zone_params = "${landing_zone_params}"
        def environment_params = "${environment_params}"
        def bootstrap_params = "${bootstrap_params}"
+       def org_params = "${$org_params}"
+       def environments_params = "${environments_params}"
+       def networks_params = "${networks_params}"
+       def projects_params = "${projects_params}"
+       def app-infra_params = "${app-infra_params}"
         
   }
     stages {
@@ -32,10 +37,9 @@ pipeline {
                 
                 container('gcloud') {
                     sh '''
+                        gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+                        gcloud config list
                        '''
-//                         gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
-//                         gcloud config list
-//                        '''
                 }
             }
             
@@ -44,15 +48,14 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh '''
+                         apt-get -y install jq wget unzip
+                         wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.14.6/terraform_0.14.6_linux_amd64.zip
+                         unzip -q /tmp/terraform.zip -d /tmp
+                         chmod +x /tmp/terraform
+                         mv /tmp/terraform /usr/local/bin
+                         rm /tmp/terraform.zip
+                         terraform --version
                         '''
-//                          apt-get -y install jq wget unzip
-//                          wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-//                          unzip -q /tmp/terraform.zip -d /tmp
-//                          chmod +x /tmp/terraform
-//                          mv /tmp/terraform /usr/local/bin
-//                          rm /tmp/terraform.zip
-//                          terraform --version
-//                         '''
                  }
              }
 
@@ -61,13 +64,11 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh '''
-                        '''
-//                          echo $environment_params
-//                          cd ./scripts/0-bootstrap/ && echo \"$environment_params\" | jq "." > terraform.auto.tfvars.json
-//                          cat terraform.auto.tfvars.json
-//                          cd ../.. && make bootstrap
-//                          echo "bootstrap layer done"
-//                          '''
+                         cd ./scripts/0-bootstrap/ && echo \"$bootstrap_params\" | jq "." > terraform.auto.tfvars.json
+                         cat terraform.auto.tfvars.json
+                         cd ../.. && make bootstrap
+                         echo "bootstrap layer done"
+                         '''
     
                  }
                
@@ -77,16 +78,14 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh '''
-                        echo "Done"
-                        '''
-//                          cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
-//                          export terraform_service_account=$(terraform output terraform_service_account)
-//                          cd ./../../../scripts/1-org/ && sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}') && rm terraform.example.tfvars 
-//                          echo \"$environment_params\" | jq "." > terraform.auto.tfvars.json && echo \"$sa_json\" | jq >> terraform.auto.tfvars.json
-//                          cat terraform.auto.tfvars.json
-//                          cd ../.. && make org
-//                          echo "1-org done"
-                      
+                         cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
+                         export terraform_service_account=$(terraform output terraform_service_account)
+                         cd ./../../../scripts/1-org/ && sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}')
+                         echo \"$org_params\" | jq "." > terraform.auto.tfvars.json && echo \"$sa_json\" | jq "." >> terraform.auto.tfvars.json
+                         cat terraform.auto.tfvars.json
+                         cd ../.. && make org
+                         echo "1-org done"
+                         '''
     
                  }
                
