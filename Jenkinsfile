@@ -70,11 +70,64 @@ pipeline {
                         '''
 //                          cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
 //                          export terraform_service_account=$(terraform output terraform_service_account)
-//                          cd ./../../../scripts/bootstrap/ && sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}') && rm terraform.example.tfvars 
-//                          echo \"$environment_params\" | jq > terraform.auto.tfvars.json && echo \"$sa_json\" | jq >> terraform.auto.tfvars.json
+//                          cd ./../../../scripts/1-org/ && sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}') && rm terraform.example.tfvars 
+//                          echo \"$environment_params\" | jq "." > terraform.auto.tfvars.json && echo \"$sa_json\" | jq >> terraform.auto.tfvars.json
 //                          cat terraform.auto.tfvars.json
 //                          cd ../.. && make org
-//                          echo "1-org layer done"
+//                          echo "1-org done"
+                      
+    
+                 }
+               
+             }
+         }
+         stage('Deploy CFT env') {
+             steps {
+                 container('gcloud') {
+                     sh '''
+                        echo "Done"
+                        '''
+//                          cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
+//                          export terraform_service_account=$(terraform output terraform_service_account)
+//                          cd ./../../../scripts/2-environments/ && echo \"$environment_params\" | jq "." > terraform.auto.tfvars.json
+//.                         cd ../.. && make env
+//                          echo "2-environments done"
+//                          '''
+    
+                 }
+               
+             }
+         }
+        stage('Deploy CFT networks') {
+             steps {
+                 container('gcloud') {
+                     sh '''
+                        echo "Done"
+                        '''
+//                          cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
+//                          export terraform_service_account=$(terraform output terraform_service_account)
+//                          cd ./../../../scripts/3-networks/ && echo \"$environment_params\" | jq "." > common.auto.tfvars.json 
+//                          mv shared.auto.example.tfvars ./shared.auto.tfvars && echo \"$environment_params\" | jq "." > access_context.auto.tfvars.json
+//                          cd ../.. && make networks
+//                          echo "3-networks  done"
+//                          '''
+    
+                 }
+               
+             }
+         }
+         stage('Deploy CFT projects') {
+             steps {
+                 container('gcloud') {
+                     sh '''
+                        echo "Done"
+                        '''
+//                          cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
+//                          export terraform_service_account=$(terraform output terraform_service_account)
+//                          cd ./../../../scripts/4-projects/ && echo \"$environment_params\" | jq "." > common.auto.tfvars.json 
+//                          mv shared.auto.example.tfvars ./shared.auto.tfvars && echo \"$environment_params\" | jq "." > access_context.auto.tfvars.json
+//                          echo \"$environment_params\" | jq "." > development.auto.tfvars.json && cd ../.. && make networks
+//                          echo "4-projects done"
 //                          '''
     
                  }
