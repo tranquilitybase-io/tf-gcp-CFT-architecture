@@ -8,25 +8,29 @@ pipeline {
     environment {
        def landing_zone_params = "${landing_zone_params}"
        def environment_params = "${environment_params}"
-       
+       def bootstrap_params = "${bootstrap_params}"
         
   }
     stages {
         
         stage ('Test received params') {
             steps {
-                sh "echo \$landing_zone_params"
-                sh "echo \$environment_params"
+                sh '''
+                echo \"$environment_params\"
+                echo \"$landing_zone_params"
+                echo \"$bootstrap_params"
+                '''
             }
         }
         stage('Activate GCP Service Account and Set Project') {
             steps {
                 
                 container('gcloud') {
-                    sh ''' 
-                        gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
-                        gcloud config list
+                    sh '''
                        '''
+//                         gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+//                         gcloud config list
+//                        '''
                 }
             }
             
@@ -34,15 +38,16 @@ pipeline {
        stage('Setup Terraform & Dependencies') {
              steps {
                  container('gcloud') {
-                     sh ''' 
-                         apt-get -y install jq wget unzip
-                         wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-                         unzip -q /tmp/terraform.zip -d /tmp
-                         chmod +x /tmp/terraform
-                         mv /tmp/terraform /usr/local/bin
-                         rm /tmp/terraform.zip
-                         terraform --version
+                     sh '''
                         '''
+//                          apt-get -y install jq wget unzip
+//                          wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+//                          unzip -q /tmp/terraform.zip -d /tmp
+//                          chmod +x /tmp/terraform
+//                          mv /tmp/terraform /usr/local/bin
+//                          rm /tmp/terraform.zip
+//                          terraform --version
+//                         '''
                  }
              }
 
@@ -51,12 +56,13 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh '''
-                         echo $environment_params
-                         cd ./scripts/0-bootstrap/ && echo \"$environment_params\" | jq "." > terraform.auto.tfvars.json
-                         cat terraform.auto.tfvars.json
-                         cd ../.. && make bootstrap
-                         echo "bootstrap layer done"
-                         '''
+                        '''
+//                          echo $environment_params
+//                          cd ./scripts/0-bootstrap/ && echo \"$environment_params\" | jq "." > terraform.auto.tfvars.json
+//                          cat terraform.auto.tfvars.json
+//                          cd ../.. && make bootstrap
+//                          echo "bootstrap layer done"
+//                          '''
     
                  }
                
