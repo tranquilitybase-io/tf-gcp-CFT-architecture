@@ -95,14 +95,13 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh '''
-                        echo "Done"
                         '''
-//                          cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
-//                          export terraform_service_account=$(terraform output terraform_service_account)
-//                          cd ./../../../scripts/2-environments/ && echo \"$environment_params\" | jq "." > terraform.auto.tfvars.json
-//.                         cd ../.. && make env
-//                          echo "2-environments done"
-//                          '''
+                        //  cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
+                        //  export terraform_service_account=$(terraform output terraform_service_account)
+                        //  cd ./../../../scripts/2-environments/ && echo \"$environment_params\" | jq "." > terraform.auto.tfvars.json
+                        //  cd ../.. && make env
+                        //  echo "2-environments done"
+                        //  '''
     
                  }
                
