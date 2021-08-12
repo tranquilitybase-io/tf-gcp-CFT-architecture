@@ -17,8 +17,13 @@ pipeline {
             steps {
                 sh '''
                 echo \"$environment_params\"
-                echo \"$landing_zone_params"
-                echo \"$bootstrap_params"
+                echo \"$landing_zone_params\"
+                echo \"$bootstrap_params\"
+                echo \"$org_params\"
+                echo \"$environments_params\"
+                echo \"$networks_params\"
+                echo \"$projects_params\"
+                echo \"$app-infra_params\"
                 '''
             }
         }
