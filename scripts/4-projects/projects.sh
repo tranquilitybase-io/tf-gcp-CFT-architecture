@@ -112,7 +112,7 @@ cd ./business_unit_1/shared/
 terraform init
 terraform plan
 terraform apply
-terraform output cloudbuild_sa
+bu1_app_infra_pipeline_cloudbuild_sa=$(terraform output cloudbuild_sa)
 cd ../..
 
 
@@ -130,29 +130,23 @@ cd ./business_unit_2/shared/
 terraform init
 terraform plan
 terraform apply
-terraform output cloudbuild_sa
+bu2_app_infra_pipeline_cloudbuild_sa=$(terraform output cloudbuild_sa)
 cd ../..
-
 
 
 echo Removing unneeded business_unit_1.auto.example.tfvars variables
 TF_EXAMPLE_VARS=./business_unit_1.auto.example.tfvars
 [ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded $TF_EXAMPLE_VARS file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No $TF_EXAMPLE_VARS file found"; exit 1; }
 
-echo Copying in needed business_unit_1.auto.tfvars
-TF_VARS=../../scripts/4-projects/business_unit_1.auto.tfvars
-COPY_LOCATION=.
-[ -f $TF_VARS ] && { echo "Copying $TF_VARS to $COPY_LOCATION"; cp $TF_VARS $COPY_LOCATION; } || { echo "No $TF_VARS file found"; exit 1; }
-
+echo Writing in needed business_unit_1.auto.tfvars
+echo "app_infra_pipeline_cloudbuild_sa = \"$bu1_app_infra_pipeline_cloudbuild_sa\"" > business_unit_1.auto.tfvars
 
 echo Removing unneeded business_unit_2.auto.example.tfvars variables
 TF_EXAMPLE_VARS=./business_unit_2.auto.example.tfvars
 [ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded $TF_EXAMPLE_VARS file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No $TF_EXAMPLE_VARS file found"; exit 1; }
 
-echo Copying in needed business_unit_2.auto.tfvars variables
-TF_VARS=../../scripts/4-projects/business_unit_2.auto.tfvars
-COPY_LOCATION=.
-[ -f $TF_VARS ] && { echo "Copying $TF_VARS to $COPY_LOCATION"; cp $TF_VARS $COPY_LOCATION; } || { echo "No $TF_VARS file found"; exit 1; }
+echo Writing in needed business_unit_2.auto.tfvars variables
+echo "app_infra_pipeline_cloudbuild_sa = \"$bu2_app_infra_pipeline_cloudbuild_sa\"" > business_unit_2.auto.tfvars
 
 
 echo pushing plan
