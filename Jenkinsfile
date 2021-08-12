@@ -13,7 +13,7 @@ pipeline {
        def environments_params = "${environments_params}"
        def networks_params = "${networks_params}"
        def projects_params = "${projects_params}"
-       def app-infra_params = "${app-infra_params}"
+       def app_infra_params = "${app-infra_params}"
         
   }
     stages {
