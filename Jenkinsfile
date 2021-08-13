@@ -64,11 +64,12 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh '''
-                         cd ./scripts/0-bootstrap/ && echo \"$bootstrap_params\" | jq "." > terraform.auto.tfvars.json
-                         cat terraform.auto.tfvars.json
-                         cd ../.. && make bootstrap
-                         echo "bootstrap layer done"
-                         '''
+                        '''
+//                          cd ./scripts/0-bootstrap/ && echo \"$bootstrap_params\" | jq "." > terraform.auto.tfvars.json
+//                          cat terraform.auto.tfvars.json
+//                          cd ../.. && make bootstrap
+//                          echo "bootstrap layer done"
+//                          '''
     
                  }
                
@@ -78,15 +79,20 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh '''
-                         cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
-                         sed -e 's/^"//' -e 's/"$//' <<<"$terraform_service_account" && export terraform_service_account=$(terraform output terraform_service_account)
-                         cd ./../../../scripts/1-org/ && sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}')
-                         echo \"$org_params\" | jq "." > terraform.auto.tfvars.json && echo $sa_json | jq "." >> terraform.auto.tfvars.json
-                         gcloud config set project $CLOUD_BUILD_PROJECT_ID
-                         echo $terraform_service_account && cat terraform.auto.tfvars.json
-                         cd ../.. && make org
-                         echo "1-org done"
-                         '''
+                        export terraform_service_account=\"hdhdhdhd\"
+                        echo $terraform_service_account
+                        sed -e 's/^"//' -e 's/"$//' <<<"$terraform_service_account"
+                        echo $terraform_service_account
+                        '''
+//                          cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
+//                          sed -e 's/^"//' -e 's/"$//' <<<"$terraform_service_account" && export terraform_service_account=$(terraform output terraform_service_account)
+//                          cd ./../../../scripts/1-org/ && sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}')
+//                          echo \"$org_params\" | jq "." > terraform.auto.tfvars.json && echo $sa_json | jq "." >> terraform.auto.tfvars.json
+//                          gcloud config set project $CLOUD_BUILD_PROJECT_ID
+//                          echo $terraform_service_account && cat terraform.auto.tfvars.json
+//                          cd ../.. && make org
+//                          echo "1-org done"
+//                          '''
     
                  }
                
