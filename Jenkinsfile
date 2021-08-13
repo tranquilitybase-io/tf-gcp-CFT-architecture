@@ -78,12 +78,13 @@ pipeline {
           stage('Deploy CFT 1-org') {
              steps {
                  container('gcloud') {
-                     sh """
+                     sh '''
+                        #!/bin/bash
                         export terraform_service_account=\"hdhdhdhd\"
                         echo $terraform_service_account
-                        sed -e 's/^"//' -e 's/"$//' <<<"\${terraform_service_account}"
+                        sed -e 's/^"//' -e 's/"$//' <<<"${terraform_service_account}"
                         echo $terraform_service_account
-                        """
+                        '''
 //                          cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
 //                          sed -e 's/^"//' -e 's/"$//' <<<"$terraform_service_account" && export terraform_service_account=$(terraform output terraform_service_account)
 //                          cd ./../../../scripts/1-org/ && sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}')
