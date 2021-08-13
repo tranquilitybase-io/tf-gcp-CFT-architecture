@@ -90,7 +90,8 @@ pipeline {
                            export terraform_service_account=$(echo ${terraform_service_account} | sed 's/^"//' |sed 's/"$//')
                            cd ./../../../scripts/1-org/ && sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}')
                            echo \"$org_params\" | jq "." > terraform.auto.tfvars.json && echo $sa_json | jq "." >> terraform.auto.tfvars.json
-                           gcloud config set project $CLOUD_BUILD_PROJECT_ID
+                           export cicdproj=$(echo ${CLOUD_BUILD_PROJECT_ID} | sed 's/^"//' |sed 's/"$//')
+                           gcloud config set project $cicdproj
                            echo $terraform_service_account && cat terraform.auto.tfvars.json
                            cd ../.. && make org
                            echo "1-org done"
