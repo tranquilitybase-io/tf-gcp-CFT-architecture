@@ -48,15 +48,15 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh '''
+                       
+                         apt-get -y install jq wget unzip
+                         wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.14.6/terraform_0.14.6_linux_amd64.zip
+                         unzip -q /tmp/terraform.zip -d /tmp
+                         chmod +x /tmp/terraform
+                         mv /tmp/terraform /usr/local/bin
+                         rm /tmp/terraform.zip
+                         terraform --version
                         '''
-//                          apt-get -y install jq wget unzip
-//                          wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.14.6/terraform_0.14.6_linux_amd64.zip
-//                          unzip -q /tmp/terraform.zip -d /tmp
-//                          chmod +x /tmp/terraform
-//                          mv /tmp/terraform /usr/local/bin
-//                          rm /tmp/terraform.zip
-//                          terraform --version
-//                         '''
                  }
              }
 
@@ -65,13 +65,13 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh '''
-                     '''
+                     
                         
-//                          cd ./scripts/0-bootstrap/ && echo \"$bootstrap_params\" | jq "." > terraform.auto.tfvars.json
-//                          cat terraform.auto.tfvars.json
-//                          cd ../.. && make bootstrap
-//                          echo "bootstrap layer done"
-//                          '''
+                         cd ./scripts/0-bootstrap/ && echo \"$bootstrap_params\" | jq "." > terraform.auto.tfvars.json
+                         cat terraform.auto.tfvars.json
+                         cd ../.. && make bootstrap
+                         echo "bootstrap layer done"
+                         '''
     
                  }
                
@@ -87,19 +87,19 @@ pipeline {
                  
 //                         echo $terraform_service_account
                         sh '''
-                            export proj=\"prj-b-cicd\"
-                            gcloud config set project $proj
-                            '''
-//                            cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
-//                            export terraform_service_account=$(terraform output terraform_service_account)
-//                            export terraform_service_account=$(echo ${terraform_service_account} | sed 's/^"//' |sed 's/"$//')
-//                            cd ./../../../scripts/1-org/ && sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}')
-//                            echo \"$org_params\" | jq "." > terraform.auto.tfvars.json && echo $sa_json | jq "." >> terraform.auto.tfvars.json
-//                            gcloud config set project prj-b-cicd
-//                            echo $terraform_service_account && cat terraform.auto.tfvars.json
-// //                            cd ../.. && make org
-//                            echo "1-org done"
-//                          '''
+                           cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
+                           export terraform_service_account=$(terraform output terraform_service_account)
+                           export terraform_service_account=$(echo ${terraform_service_account} | sed 's/^"//' |sed 's/"$//')
+                           cd ./../../../scripts/1-org/ && sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}')
+                           echo \"$landing_zone_params\" | jq "." > terraform.auto.tfvars.json && echo $sa_json | jq "." >> terraform.auto.tfvars.json
+                           sleep 30
+                           
+                           gcloud config set project prj-b-cicd
+                           
+                           echo $terraform_service_account && cat terraform.auto.tfvars.json
+                           cd ../.. && make org
+                           echo "1-org done"
+                         '''
     
                  }
                
