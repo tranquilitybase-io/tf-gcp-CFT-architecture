@@ -81,7 +81,7 @@ pipeline {
                      sh """
                         export terraform_service_account=\"hdhdhdhd\"
                         echo $terraform_service_account
-                        sed -e 's/^"//' -e 's/"$//' <<< ${terraform_service_account}
+                        sed -e 's/^"//' -e 's/"$//' <<<\"${terraform_service_account}\"
                         echo $terraform_service_account
                         """
 //                          cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
