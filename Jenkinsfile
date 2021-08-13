@@ -79,7 +79,7 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh '''
-                        export terraform_service_account=xytsjsjdjj
+                        export terraform_service_account="xytsjsjdjj"
                         sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}')
                         echo \"$sa_json\" | jq "." >> terraform.auto.tfvars.json
                         cat terraform.auto.tfvars.json
