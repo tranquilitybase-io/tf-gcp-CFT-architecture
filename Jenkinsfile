@@ -87,7 +87,8 @@ pipeline {
                  
 //                         echo $terraform_service_account
                         sh '''
-                            gcloud config set project prj-b-cicd
+                            export proj=\"prj-b-cicd\"
+                            gcloud config set project $proj
                             '''
 //                            cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
 //                            export terraform_service_account=$(terraform output terraform_service_account)
