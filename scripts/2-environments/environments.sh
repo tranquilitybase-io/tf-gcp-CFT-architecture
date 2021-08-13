@@ -2,8 +2,8 @@ echo looking for past deployments to delete:
 ENV_FOLDER=./env
 [ -d $ENV_FOLDER ] && { echo "Removing past deployment file $ENV_FOLDER"; rm -rf $ENV_FOLDER; } || echo "No past deployments found"
 
-echo sourcing required variables
-source ./scripts/2-environments/env-variables.sh
+#echo sourcing required variables
+#source ./scripts/2-environments/env-variables.sh
 
 echo Creating root env folder
 mkdir env
@@ -41,7 +41,7 @@ TF_EXAMPLE_VARS=./terraform.example.tfvars
 [ -f $TF_EXAMPLE_VARS ] && { echo "Removing unneeded terraform.example.tfvars file: $TF_EXAMPLE_VARS"; rm $TF_EXAMPLE_VARS; } || { echo "No terraform.example.tfvars file found"; }
 
 echo Copying in needed variables
-TF_VARS=../../scripts/2-environments/terraform.tfvars
+TF_VARS=../../scripts/2-environments/terraform.auto.tfvars.json
 COPY_LOCATION=.
 [ -f $TF_VARS ] && { echo "Copying $TF_VARS to $COPY_LOCATION"; cp $TF_VARS $COPY_LOCATION; } || { echo "No $TF_VARS file found"; exit 1; }
 
