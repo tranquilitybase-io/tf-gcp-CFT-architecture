@@ -87,15 +87,12 @@ pipeline {
                  
 //                         echo $terraform_service_account
                         sh '''
-                           cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
-                           export terraform_service_account=$(terraform output terraform_service_account)
+                           cd ./bootstrap/terraform-example-foundation/0-bootstrap && CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
+                           terraform_service_account=$(terraform output terraform_service_account)
                            export terraform_service_account=$(echo ${terraform_service_account} | sed 's/^"//' |sed 's/"$//')
+                           export CLOUD_BUILD_PROJECT_ID=$(echo ${CLOUD_BUILD_PROJECT_ID} | sed 's/^"//' |sed 's/"$//')
                            cd ./../../../scripts/1-org/ && sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}')
                            echo \"$landing_zone_params\" | jq "." > terraform.auto.tfvars.json && echo $sa_json | jq "." >> terraform.auto.tfvars.json
-                           sleep 30
-                           
-                           gcloud config set project prj-b-cicd
-                           
                            echo $terraform_service_account && cat terraform.auto.tfvars.json
                            cd ../.. && make org
                            echo "1-org done"
