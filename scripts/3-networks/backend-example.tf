@@ -16,7 +16,7 @@
 
 terraform {
   backend "gcs" {
-    bucket = "UPDATE_ME"
+    bucket = var.gcs_bucket_tfstate
     prefix = "terraform/networks/envs/shared"
   }
 }
