@@ -217,8 +217,39 @@ This repo is part of a multi-part guide that shows how to configure and deploy t
    make projects
    ```
 
+## 5-app-infra
 
 
+### Instructions:
+
+1. Change into app-infra script folder.
+   ```
+   cd ./tf-gcp-CFT-architecture/scripts/5-app-infra
+   ```
+1. Rename `env-variables-example.sh` to `env-variables.sh` and update the file with the project id of the cicd project created within the bootstrap step.
+
+1. Rename `common.auto.example.tfvars` to `common.auto.tfvars` and update the file with the project id of the cicd project created within the bootstrap step.
+
+
+1. Rename `bu1-development.auto.example.tfvars` to `bu1-development.auto.tfvars` and update the file with the `perimeter_name` variable from the relevant environment variable.
+1. Rename `bu1-non-production.auto.example.tfvars` to `bu1-non-production.auto.tfvars` and update the file with the `perimeter_name` variable from the relevant environment variable.
+1. Rename `bu1-production.auto.example.tfvars` to `bu1-production.auto.tfvars` and update the file with the `perimeter_name` variable from the relevant environment variable.
+
+   ```bash
+   #Obtaining the values for the `perimeter_name` for each environment variable.
+   gcloud access-context-manager perimeters list --policy ACCESS_CONTEXT_MANAGER_POLICY_ID --format="value(name)"
+   ```
+
+   **Note:** If you have more than one service perimeter for each environment, you can also get the values from the `restricted_service_perimeter_name` output from each of the`3-networks` environments.
+
+1. Change back into root `./tf-gcp-CFT-architecture` directory.
+   ```
+   cd ..
+   ```
+1. Execute app-infra script.
+   ```
+   make app-infra
+   ```
 
 
 
