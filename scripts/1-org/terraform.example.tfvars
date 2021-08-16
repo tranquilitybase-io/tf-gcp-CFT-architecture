@@ -39,4 +39,4 @@ parent_folder = ""
 
 create_access_context_manager_access_policy = false
 
-//enable_hub_and_spoke = true
+enable_hub_and_spoke = true

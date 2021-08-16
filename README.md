@@ -58,51 +58,123 @@
 This repo is part of a multi-part guide that shows how to configure and deploy the example.com reference architecture described in Google Cloud security foundations guide (PDF). 
 
 ### Instructions: 
+1. Git clone repo.
+   ```
+   git clone https://github.com/tranquilitybase-io/tf-gcp-CFT-architecture.git
+   ```
 
-	git clone https://github.com/tranquilitybase-io/tf-gcp-CFT-architecture.git
-	
-	cd ./tf-gcp-CFT-architecture/scripts/bootstrap
-	
-Edit the file called "terraform.example.tfvars"	
-Rename the file "terraform.example.tfvars" to "terraform.tfvars"
+1. Checkout relevant branch.
+   ```
+   git checkout master
+   ```
+1. Change into bootstrap script folder.
+   ```
+   cd ./tf-gcp-CFT-architecture/scripts/0-bootstrap
+   ```
+1. Rename `terraform.example.tfvars` to `terraform.tfvars`  
+   and update the file with values from your environment.
+   ```
+   mv terraform.example.tfvars terraform.tfvars
+   ```
+1. Change back into root `./tf-gcp-CFT-architecture` directory. 
+   ```
+   cd ..
+   ```
+1. Execute bootstrap script.
+   ```
+   make bootstrap
+   ```
+1. Make note of the `cloudbuild_project_id` terraform output which will be used a later procedure.
+1. Make note of the `terraform_service_account` terraform output which will be used a later procedure.
+1. Make note of the `gcs_bucket_tfstate` terraform output which will be used a later procedure. 
 
-	cd ../..
-	
-	make bootstrap
-	
-Go to the folder:
-	
-	tf-gcp-CFT-architecture/bootstrap/terraform-example-foundation/0-bootstrap$
 
-Note the email address of the admin. You need this address in a later procedure. under which folder?
 
-	 terraform output terraform_service_account
 
 ## 1-org
 
-This repo is part of a multi-part guide that shows how to configure and deploy the example.com reference architecture described in Google Cloud security foundations guide (PDF). 
 
 ### Instructions: 
 
-    cd ./tf-gcp-CFT-architecture/scripts/bootstrap
-	
-Edit the file called "terraform.example.tfvars"	 with your project information
+1. Change into org script folder.
+   ```
+   cd ./tf-gcp-CFT-architecture/scripts/1-org
+   ```
+1. Rename `terraform.example.tfvars` to `terraform.tfvars` and update the file with values from your environment.
 
-Rename the file "terraform.example.tfvars" to "terraform.tfvars"
+1. Rename `env-variables-example.sh` to `env-variables.sh` and update the file with the project id of the cicd project created within the bootstrap step.
 
-    mv terraform.example.tfvars terraform.tfvars
+1. Change back into root `./tf-gcp-CFT-architecture` directory.
+   ```
+   cd ..
+   ```
+1. Execute org script.
+   ```
+   make org
+   ```
 
-Edit the file called "env-variables-example.sh" and rename the file "env-variables-example.sh" to env-variables.sh 
 
-In "export CLOUD_BUILD_PROJECT_ID=<project_id>"
-Use the project id of the CI/CD ex (prj-b-cicd-xxxx)
+## 2-env
 
-   	mv env-variables-example.sh env-variables.sh
-	
-Run org.sh
 
-	cd ../..
-	make org
+### Instructions:
+
+1. Change into env script folder.
+   ```
+   cd ./tf-gcp-CFT-architecture/scripts/2-env
+   ```
+1. Rename `terraform.example.tfvars` to `terraform.tfvars` and update the file with values from your environment.
+
+1. Rename `env-variables-example.sh` to `env-variables.sh` and update the file with the project id of the cicd project created within the bootstrap step.
+
+1. Change back into root `./tf-gcp-CFT-architecture` directory.
+   ```
+   cd ..
+   ```
+1. Execute env script.
+   ```
+   make env
+   ```
+   
+## 3-networks
+
+
+### Instructions:
+
+1. Change into networks script folder.
+   ```
+   cd ./tf-gcp-CFT-architecture/scripts/3-networks
+   ```
+1. Rename `terraform.example.tfvars` to `terraform.tfvars` and update the file with values from your environment.
+
+1. Rename `env-variables-example.sh` to `env-variables.sh` and update the file with the project id of the cicd project created within the bootstrap step.
+
+1. Rename `access_context.auto.example.tfvars` to `access_context.auto.tfvars` and update the file with the project id of the cicd project created within the bootstrap step.
+   ```
+   #You can obtain the value for the access_context_manager_policy_id variable via the following command:
+   gcloud access-context-manager policies list --organization YOUR_ORGANIZATION_ID --format="value(name)"
+   ```
+
+1. Rename `backend-example.tf` to `backend-example.tf` and update the file with the project id of the cicd project created within the bootstrap step.
+   ```
+   #You can find the bucket name from the output gcs_bucket_tfstate from the bootstrap layer.
+   ```
+1. Rename `common.auto.example.tfvars` to `common.auto.tfvars` and update the file with the project id of the cicd project created within the bootstrap step.
+
+1. Rename `shared.auto.example.tfvars` to `shared.auto.tfvars` and update the file with the project id of the cicd project created within the bootstrap step.
+
+1. Change back into root `./tf-gcp-CFT-architecture` directory.
+   ```
+   cd ..
+   ```
+1. Execute networks script.
+   ```
+   make networks
+   ```
+
+
+
+
 
 
 
