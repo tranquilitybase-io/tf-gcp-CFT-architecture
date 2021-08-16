@@ -212,9 +212,9 @@ This repo is part of a multi-part guide that shows how to configure and deploy t
    ```
    cd ..
    ```
-1. Execute networks script.
+1. Execute projects script.
    ```
-   make networks
+   make projects
    ```
 
 
