@@ -122,7 +122,7 @@ pipeline {
                          cd ./bootstrap/terraform-example-foundation/0-bootstrap && CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
                          terraform_service_account=$(terraform output terraform_service_account)
                          gcs_bucket_tfstate=$(terraform output gcs_bucket_tfstate)
-                         export TF_VAR_gcs_bucket_tfstate=$(echo ${backend_file} | sed 's/^"//' |sed 's/"$//')
+                         export TF_VAR_gcs_bucket_tfstate=$(echo ${gcs_bucket_tfstate} | sed 's/^"//' |sed 's/"$//')
                          export CLOUD_BUILD_PROJECT_ID=$(echo ${CLOUD_BUILD_PROJECT_ID} | sed 's/^"//' |sed 's/"$//')
                          export terraform_service_account=$(echo ${terraform_service_account} | sed 's/^"//' |sed 's/"$//')
                          cd ./../../../scripts/3-networks/ && echo \"$networks_params\" | jq "." > common.auto.tfvars.json
