@@ -119,15 +119,15 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh '''
-                        echo "Done"
-                        '''
                          cd ./bootstrap/terraform-example-foundation/0-bootstrap && CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
                          terraform_service_account=$(terraform output terraform_service_account)
+                         gcs_bucket_tfstate=$(terraform output gcs_bucket_tfstate)
+                         export TF_VAR_gcs_bucket_tfstate=$(echo ${backend_file} | sed 's/^"//' |sed 's/"$//')
                          export CLOUD_BUILD_PROJECT_ID=$(echo ${CLOUD_BUILD_PROJECT_ID} | sed 's/^"//' |sed 's/"$//')
                          export terraform_service_account=$(echo ${terraform_service_account} | sed 's/^"//' |sed 's/"$//')
-                         cd ./../../../scripts/3-networks/ && echo \"$environment_params\" | jq "." > common.auto.tfvars.json
+                         cd ./../../../scripts/3-networks/ && echo \"$networks_params\" | jq "." > common.auto.tfvars.json
                          sa_json=$(jq -n --arg sa "$terraform_service_account" '{terraform_service_account: $sa}') && echo $sa_json | jq "." >> common.auto.tfvars.json
-                         mv shared.auto.example.tfvars ./shared.auto.tfvars.json && echo \"$environment_params\" | jq "." > access_context.auto.tfvars.json 
+                         mv shared.auto.example.tfvars ./shared.auto.tfvars.json && echo \"$networks_params\" | jq "." > access_context.auto.tfvars.json 
                          cd ../.. && make networks
                          echo "3-networks  done"
                          '''
