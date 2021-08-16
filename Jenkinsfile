@@ -108,7 +108,7 @@ pipeline {
                         echo \"$environments_params\" | jq "." > terraform.auto.tfvars.json && echo $sa_json | jq "." >> terraform.auto.tfvars.json
                         echo $terraform_service_account && cat terraform.auto.tfvars.json
                         cd ../.. && make env
-                        cho "2-environments done"
+                        echo "2-environments done"
                         '''
     
                  }
@@ -140,15 +140,28 @@ pipeline {
              steps {
                  container('gcloud') {
                      sh '''
-                        echo "Done"
-                        '''
-//                          cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
-//                          export terraform_service_account=$(terraform output terraform_service_account)
-//                          cd ./../../../scripts/4-projects/ && echo \"$environment_params\" | jq "." > common.auto.tfvars.json 
-//                          mv shared.auto.example.tfvars ./shared.auto.tfvars && echo \"$environment_params\" | jq "." > access_context.auto.tfvars.json
-//                          echo \"$environment_params\" | jq "." > development.auto.tfvars.json && cd ../.. && make networks
-//                          echo "4-projects done"
-//                          '''
+                         cd ./bootstrap/terraform-example-foundation/0-bootstrap && export CLOUD_BUILD_PROJECT_ID=$(terraform output cloudbuild_project_id)
+                         terraform_service_account=$(terraform output terraform_service_account)
+                         gcs_bucket_tfstate=$(terraform output gcs_bucket_tfstate)
+                         export TF_VAR_gcs_bucket_tfstate=$(echo ${gcs_bucket_tfstate} | sed 's/^"//' |sed 's/"$//')
+                         export CLOUD_BUILD_PROJECT_ID=$(echo ${CLOUD_BUILD_PROJECT_ID} | sed 's/^"//' |sed 's/"$//')
+                         export terraform_service_account=$(echo ${terraform_service_account} | sed 's/^"//' |sed 's/"$//')
+                         
+                         dev_build_id=gcloud builds list --project=CLOUD_BUILD_PROJECT_ID --filter="status=SUCCESS AND source.repoSource.repoName=gcp-networks AND substitutions.BRANCH_NAME=development" --format="value(id)"   
+                         dev_perimeter_name=gcloud builds log dev_build_id --project=CLOUD_BUILD_PROJECT_ID | grep "restricted_service_perimeter_name = "
+                         
+                         prod_build_id=gcloud builds list --project=CLOUD_BUILD_PROJECT_ID --filter="status=SUCCESS AND source.repoSource.repoName=gcp-networks AND substitutions.BRANCH_NAME=development" --format="value(id)"   
+                         prod_perimeter=gcloud builds log prod_build_id --project=CLOUD_BUILD_PROJECT_ID | grep "restricted_service_perimeter_name = "
+                         
+                         non_prod_build_id=gcloud builds list --project=CLOUD_BUILD_PROJECT_ID --filter="status=SUCCESS AND source.repoSource.repoName=gcp-networks AND substitutions.BRANCH_NAME=development" --format="value(id)"   
+                         non_prod_perimeter=gcloud builds log non_prod_build_id --project=CLOUD_BUILD_PROJECT_ID | grep "restricted_service_perimeter_name = "
+         
+                         export terraform_service_account=$(terraform output terraform_service_account)
+                         cd ./../../../scripts/4-projects/ && echo \"$environment_params\" | jq "." > common.auto.tfvars.json 
+                         mv shared.auto.example.tfvars ./shared.auto.tfvars && echo \"$environment_params\" | jq "." > access_context.auto.tfvars.json
+                         echo \"$environment_params\" | jq "." > development.auto.tfvars.json && cd ../.. && make networks
+                         echo "4-projects done"
+                         '''
     
                  }
                
