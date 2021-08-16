@@ -30,7 +30,7 @@ echo checkout plan
 git checkout -b plan
 
 echo Copying needed build files
-cp -R ../terraform-example-foundation/3-networks/ .
+cp -R ../terraform-example-foundation/3-networks/. .
 cp ../terraform-example-foundation/build/cloudbuild-tf-* .
 cp ../terraform-example-foundation/build/tf-wrapper.sh .
 chmod 755 ./tf-wrapper.sh
