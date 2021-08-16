@@ -22,4 +22,4 @@ terraform_service_account = "org-terraform@example-project-2334.iam.gserviceacco
 
 // Optional - for an organization with existing projects or for development/validation.
 // Must be the same value used in previous steps.
-//parent_folder = "01234567890"
+parent_folder = "01234567890"

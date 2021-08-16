@@ -75,6 +75,16 @@ TF_VARS=../../scripts/3-networks/backend.tf
 COPY_LOCATION=./envs/shared/
 [ -f $TF_VARS ] && { echo "Copying $TF_VARS to $COPY_LOCATION"; cp $TF_VARS $COPY_LOCATION; } || { echo "No $TF_VARS file found"; exit 1; }
 
+echo Declaring backend file
+cat >> ./env/shared/variables.tf <<EOL
+
+variable "gcs_bucket_tfstate" {
+  description = "Backend state file location"
+  type        = "string"
+  default     = null
+}
+EOL
+
 echo Local shared file TF apply
 cd ./envs/shared/
 terraform init
