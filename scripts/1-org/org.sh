@@ -46,7 +46,7 @@ cd gcp-org
 git checkout -b plan
 
 echo Copying in org code
-ORG_CODE_LOCATION=../terraform-example-foundation/1-org/
+ORG_CODE_LOCATION=../terraform-example-foundation/1-org/.
 [ -d $ORG_CODE_LOCATION ] && { echo "copying org files"; cp -R $ORG_CODE_LOCATION .; } || { echo "Can't find org files"; exit 1; }
 
 echo Adding build/wrapper files to gcp-org
